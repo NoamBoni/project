@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema({
         required: true,
         min: 1,
     },
+    images: {
+        type: [String],
+        default: ["https://i.pinimg.com/originals/96/af/7b/96af7babdccc560c51f6837524472408.jpg"]
+    },
     category: {
         type: String,
         enum: ['dogs', 'cats', 'birds', 'ferrets'],
@@ -27,10 +31,8 @@ const productSchema = new mongoose.Schema({
     size: {
         type: String,
         enum: ['small', 'medium', 'large'],
-        required: true,
         default: 'medium',
     },
-    images: [String],
 });
 
 const Product = mongoose.model('products', productSchema);
