@@ -46,7 +46,7 @@ module.exports.getProductById = async (req, res) => {
 module.exports.deleteProductById = async (req, res) => {
     const { id } = req.params;
     try {
-        await Product.deleteOne({ _id: id });
+        await Product.findByIdAndDelete(id);
         sendRes(res, {}, 204);
     } catch (err) {
         sendRes(res, err, 400, true);
