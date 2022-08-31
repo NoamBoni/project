@@ -3,11 +3,14 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const productRouter = require('./routes/productRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
 app.use(express.json());
+
 app.use('/products', productRouter);
+app.use('/reviews', reviewRouter);
 
 dotenv.config({ path: '.env' });
 

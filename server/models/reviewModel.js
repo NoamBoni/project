@@ -11,10 +11,6 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    product: {
-        type: String,
-        required: true,
-    },
     stars: {
         type: Number,
         enum: [1, 2, 3, 4, 5],
@@ -27,6 +23,10 @@ const reviewSchema = new mongoose.Schema({
     reviewer: {
         type: String,
         required: true,
+    },
+    product: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Product',
     },
 });
 
