@@ -29,4 +29,3 @@ module.exports.createNewReview = async (req, res) => {
         sendRes(res, err, 400, true);
     }
 };
-
