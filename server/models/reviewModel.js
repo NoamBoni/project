@@ -21,14 +21,16 @@ const reviewSchema = new mongoose.Schema({
         default: Date.now(),
     },
     reviewer: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
+        ref: 'users',
         required: true,
     },
     product: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Product',
+        ref: 'products',
     },
 });
 
 const Review = mongoose.model('reviews', reviewSchema);
+
 module.exports = Review;

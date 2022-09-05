@@ -35,7 +35,7 @@ module.exports.getAllProducts = async (req, res) => {
 module.exports.getProductById = async (req, res) => {
     const { id } = req.params;
     try {
-        const product = await Product.findById(id);
+        const product = await Product.findById(id).populate('reviews');
         if (!product) throw new Error('id does not exist');
         sendRes(res, product, 200);
     } catch (err) {

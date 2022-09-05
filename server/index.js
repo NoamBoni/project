@@ -4,11 +4,13 @@ const dotenv = require('dotenv');
 
 const productRouter = require('./routes/productRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
+const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
 app.use(express.json());
 
+app.use('/auth', authRouter);
 app.use('/products', productRouter);
 app.use('/reviews', reviewRouter);
 
