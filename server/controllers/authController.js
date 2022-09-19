@@ -3,6 +3,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const { sendRes } = require("../helpers/sendRes");
 
+const roles = {
+  buyer: 1,
+  editor: 2,
+  admin: 3,
+};
+
+module.exports.roles = {
+  buyer: "buyer",
+  editor: "editor",
+  admin: "admin",
+};
+
 const signJWT = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRATION,
@@ -56,4 +68,18 @@ module.exports.authenticateUser = async (req, res, next) => {
     return;
   }
   next();
+};
+
+module.exports.restrict = (desiredRole) => {
+  return function (req, res, next) {
+    const { user } = req;
+    try {
+      if (roles[user.role] < roles[desiredRole])
+        throw new Error("unauthorized");
+    } catch (err) {
+      sendRes(res, err, 401, true);
+      return;
+    }
+    next();
+  };
 };

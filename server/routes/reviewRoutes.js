@@ -1,12 +1,15 @@
-const express = require('express');
+const express = require("express");
 
-const reviewController = require('../controllers/reviewController');
+const reviewController = require("../controllers/reviewController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router
-    .route('/:productId')
-    .all(reviewController.checkIfProductExist)
-    .post(reviewController.createNewReview);
+router.use(
+  authController.authenticateUser,
+  reviewController.checkIfProductExist
+);
+
+router.route("/:productId").post(reviewController.createNewReview);
 
 module.exports = router;

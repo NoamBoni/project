@@ -1,14 +1,22 @@
-const express = require('express');
+const express = require("express");
 
-const userController = require('../controllers/userController');
+const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router
-    .route('/')
-    .delete(userController.deleteUser)
-    .put(userController.updateUser);
+const { roles } = authController;
 
-router.put('/promote', userController.promoteUser);
+router.use(
+  authController.authenticateUser,
+  authController.restrict(roles.admin)
+);
+
+router
+  .route("/")
+  .delete(userController.deleteUser)
+  .put(userController.updateUser);
+
+router.put("/promote", userController.promoteUser);
 
 module.exports = router;
